@@ -71,7 +71,7 @@ public class Act_Login extends Activity {
 
 	private void findViewsById() {
         et_account = (EditText) findViewById(R.id.et_account);
-        et_password = (EditText) findViewById(R.id.et_password);
+        et_password = (EditText) findViewById(R.id.et_pwd);
         btn_login = (Button)findViewById(R.id.btn_login);
     }
 	
@@ -108,18 +108,8 @@ public class Act_Login extends Activity {
 			if(msg.isType() == true){
 				//验证通过
 				Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(msg.getMessage()),Userinfo.class);
-				if(userinfo.getIsadmin() == 1){
+				if(userinfo.getIsadmin()==1){
 					//管理员界面
-					Intent intent = new Intent();
-					intent.setClass(Act_Login.this, Act_Manager.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("userinfo", userinfo);
-					intent.putExtras(bundle);
-					// 转向登陆后的页面
-					startActivity(intent);
-					proDialog.dismiss();
-				}else{
-					//普通人员
 					Intent intent = new Intent();
 					intent.setClass(Act_Login.this, Act_Main.class);
 					Bundle bundle = new Bundle();
@@ -128,8 +118,17 @@ public class Act_Login extends Activity {
 					// 转向登陆后的页面
 					startActivity(intent);
 					proDialog.dismiss();
+				}else{
+					//用户界面
+					Intent intent = new Intent();
+					intent.setClass(Act_Login.this, Act_User.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("userinfo", userinfo);
+					intent.putExtras(bundle);
+					// 转向登陆后的页面
+					startActivity(intent);
+					proDialog.dismiss();
 				}
-				
 				
 			}else{
 				//未通过

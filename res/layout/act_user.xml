@@ -22,7 +22,7 @@
                 android:background="@null" >
 
                 <RelativeLayout
-                    android:id="@+id/main_position"
+                    android:id="@+id/rl_user_position"
                     android:layout_width="fill_parent"
                     android:layout_height="120dip"
                     android:layout_gravity="center"
@@ -48,41 +48,24 @@
                 </RelativeLayout>
             </LinearLayout>
 
-			<LinearLayout
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_gravity="center"
-			    android:layout_marginRight="10dip"
-			    android:layout_weight="1.0"
-			    android:background="@null" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1.0"
+                android:background="@null" >
 
                 <RelativeLayout
-                    android:id="@+id/main_locus"
+                    android:id="@+id/relative2"
                     android:layout_width="fill_parent"
                     android:layout_height="120dip"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dip"
                     android:background="@null" >
 
-                    <ImageView
-                        android:id="@+id/img2"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
-                        android:layout_centerInParent="true"
-                        android:contentDescription="@null"
-                        android:src="@drawable/guiji" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/img2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="4dip"
-                        android:text="查询定位" />
-
                 </RelativeLayout>
             </LinearLayout>
-            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

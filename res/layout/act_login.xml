@@ -1,228 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/login_page_bg"
-                android:gravity="center"
-                android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_page_bg"
+    android:gravity="center"
+    android:orientation="vertical" >
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="42dp"
-            android:layout_marginRight="42dp"
-            android:orientation="vertical" >
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="42dp"
+        android:orientation="vertical" >
 
         <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/list_nav_shape_bg"
-                android:orientation="vertical" >
-
-
-
-            <EditText
-                    android:id="@+id/et_account"
-                    android:layout_width="fill_parent"
-                    android:layout_height="38dip"
-                    android:background="#00ffffff"
-                    android:hint="帐号"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:paddingLeft="8dp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/divider_horizontal_line" />
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                 />
 
             <EditText
-                    android:id="@+id/et_password"
-                    android:layout_width="fill_parent"
-                    android:layout_height="38dip"
-                    android:background="#00ffffff"
-                    android:hint="密码"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:paddingLeft="8dp" />
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="帐号" />
+
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="密码" />
+
         <RelativeLayout
-                android:layout_width="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" >
+
+            <CheckBox
+                android:id="@+id/ck_rember"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" >
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="记住密码" />
 
             <CheckBox
-                    android:id="@+id/ck_rememberPS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableLeft="@drawable/checkbox_bg"
-                    android:paddingTop="2dp"
-                    android:text="记住密码"
-                    android:textSize="12sp" />
-
-            <CheckBox
-                    android:id="@+id/ck_autoLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableLeft="@drawable/checkbox_bg"
-                    android:paddingTop="2dp"
-                    android:text="自动登录"
-                    android:textSize="12sp" />
+                android:id="@+id/ck_autologin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ck_rember"
+                android:text="自动登入" />
         </RelativeLayout>
 
         <Button
-                android:id="@+id/btn_login"
-                android:layout_width="fill_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/login_button_select"
-                android:maxHeight="16dp"
-                android:paddingTop="6.0dip"
-                android:text="登录"
-                android:textSize="18.0sp"
-
-                />
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:maxHeight="16dp"
+            android:paddingTop="6.0dip"
+            android:text="登录"
+            android:textSize="18.0sp" />
 
         <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dip"
-                android:gravity="center" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dip"
+            android:gravity="center" >
 
             <ProgressBar
-                    android:id="@+id/login_loading_bar"
-                    style="?android:progressBarStyleSmall"
-                    android:layout_width="24dip"
-                    android:layout_height="24dip"
-                    android:indeterminate="true"
-                    android:visibility="invisible" />
+                android:id="@+id/login_loading_bar"
+                style="?android:progressBarStyleSmall"
+                android:layout_width="24dip"
+                android:layout_height="24dip"
+                android:indeterminate="true"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-
-            android:orientation="vertical"
-            android:visibility="invisible" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="invisible" >
 
         <RelativeLayout
-                android:id="@+id/view_more"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:clickable="true" >
+            android:id="@+id/view_more"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:clickable="true" >
 
             <TextView
-                    android:id="@+id/tv_login_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@null"
-                    android:gravity="center"
-
-                    android:textColor="#ffffffff" />
+                android:id="@+id/tv_login_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:gravity="center"
+                android:textColor="#ffffffff" />
 
             <ImageView
-                    android:id="@+id/img_more_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/tv_login_more"
-                    android:clickable="false"
-                    android:contentDescription="@null" />
+                android:id="@+id/img_more_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_login_more"
+                android:clickable="false"
+                android:contentDescription="@null" />
         </RelativeLayout>
 
         <LinearLayout
-                android:id="@+id/menu_more"
+            android:id="@+id/menu_more"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone" >
+                android:layout_height="1.0px"
+                android:background="#ff005484" />
 
             <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0px"
-                    android:background="#ff005484" />
-
-            <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0px"
-                    android:background="#ff0883cb" />
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ff0883cb" />
 
             <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
 
                 <TextView
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-
-                        android:textSize="14sp" />
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14sp" />
 
                 <EditText
-                        android:layout_width="0dip"
-                        android:layout_height="36dip"
-                        android:layout_weight="5"
-                        android:background="#ffffff"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:paddingLeft="8dip"
-                        android:singleLine="true" />
+                    android:layout_width="0dip"
+                    android:layout_height="36dip"
+                    android:layout_weight="5"
+                    android:background="#ffffff"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:paddingLeft="8dip"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
 
                 <TextView
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-
-                        android:textSize="14sp" />
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14sp" />
 
                 <EditText
-                        android:layout_width="0dip"
-                        android:layout_height="36dip"
-                        android:layout_weight="5"
-                        android:background="#ffffff"
-                        android:imeOptions="actionDone"
-                        android:inputType="numberSigned"
-                        android:paddingLeft="8dip"
-                        android:singleLine="true" />
+                    android:layout_width="0dip"
+                    android:layout_height="36dip"
+                    android:layout_weight="5"
+                    android:background="#ffffff"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberSigned"
+                    android:paddingLeft="8dip"
+                    android:singleLine="true" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <TextView
-            android:id="@+id/txt_Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="52dp"
-            android:contentDescription="@null"
-            android:textSize="32sp"
-            android:text="移动医疗监护系统" android:textColor="#FFFFFF"/>
+        android:id="@+id/txt_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:contentDescription="@null"
+        android:text="移动医疗监护系统"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

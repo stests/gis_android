@@ -1,71 +1,51 @@
 package com.mobilemedical.activity;
 
+import com.mobilemedical.entity.Userinfo;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 
-import com.baidu.mapapi.BMapManager;
-import com.baidu.mapapi.map.MapController;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
+public class Act_Main extends Activity implements OnClickListener {
 
+	Context context = null;
+	RelativeLayout relative1, relative2;
 
-/**
- * User: zhujun
- * Date: 13-7-16
- * Time: 上午10:59
- */
-public class Act_Main extends Activity {
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.act_main);
 
-	private BMapManager mBMapMan = null;  
-	private MapView mMapView = null;  
+		Bundle bundle = this.getIntent().getExtras();
+		Userinfo userinfo = (Userinfo) bundle.getSerializable("userinfo");
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBMapMan=new BMapManager(getApplication());
-		mBMapMan.init("9E69D5557A25CD210C19A56FDE88A36FD754FB9E", null);  
-        setContentView(R.layout.act_main);
-		mMapView=(MapView)findViewById(R.id.bd_mapview);
-		mMapView.setBuiltInZoomControls(true);
-		//设置启用内置的缩放控件
-		MapController mMapController=mMapView.getController();
-		// 得到mMapView的控制权,可以用它控制和驱动平移和缩放
-		GeoPoint point =new GeoPoint((int)(39.915* 1E6),(int)(116.404* 1E6));
-		//用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
-		mMapController.setCenter(point);//设置地图中心点
-		mMapController.setZoom(12);//设置地图zoom级别
-    }
-    
-    @Override
-    protected void onDestroy(){
-            mMapView.destroy();
-            if(mBMapMan!=null){
-                    mBMapMan.destroy();
-                    mBMapMan=null;
-            }
-            super.onDestroy();
-    }
-    @Override
-    protected void onPause(){
-            mMapView.onPause();
-            if(mBMapMan!=null){
-                   mBMapMan.stop();
-            }
-            super.onPause();
-    }
-    @Override
-    protected void onResume(){
-            mMapView.onResume();
-            if(mBMapMan!=null){
-                    mBMapMan.start();
-            }
-           super.onResume();
-    }
+		RelativeLayout relative1 = (RelativeLayout) findViewById(R.id.main_position);
+		RelativeLayout relative2 = (RelativeLayout) findViewById(R.id.main_locus);
+		this.context = this;
+		relative1.setOnClickListener(this);
+		relative2.setOnClickListener(this);
 
-                   
+		if (userinfo.getIsadmin() == 1) {
+			// 是管理员
+		} else {
+			relative2.setVisibility(8);
+		}
+	}
 
-
-
-
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent();
+		switch (v.getId()) {
+		case R.id.main_position:
+			intent.setClass(context, Act_Position.class);
+			break;
+		case R.id.main_locus:
+			intent.setClass(context, Act_Locus.class);
+			break;
+		}
+		startActivity(intent);
+	}
 
 }

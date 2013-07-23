@@ -24,29 +24,31 @@ public final class R {
         public static final int login_page_bg=0x7f02000a;
     }
     public static final class id {
-        public static final int RelativeLayout01=0x7f060013;
-        public static final int RelativeLayout02=0x7f060012;
-        public static final int bd_map=0x7f060014;
-        public static final int btn_login=0x7f060006;
-        public static final int ck_autologin=0x7f060005;
-        public static final int ck_rember=0x7f060004;
-        public static final int editText1=0x7f06000d;
-        public static final int et_account=0x7f060002;
-        public static final int et_pwd=0x7f060003;
-        public static final int img1=0x7f06000f;
-        public static final int img2=0x7f060011;
-        public static final int img_more_up=0x7f06000a;
-        public static final int linearLayout1=0x7f060001;
-        public static final int login_loading_bar=0x7f060007;
-        public static final int main_locus=0x7f060010;
-        public static final int main_position=0x7f06000e;
-        public static final int menu_more=0x7f06000b;
-        public static final int relative2=0x7f060016;
-        public static final int rl_user_position=0x7f060015;
-        public static final int sp_fun=0x7f060000;
-        public static final int tv_login_more=0x7f060009;
-        public static final int txt_Title=0x7f06000c;
-        public static final int view_more=0x7f060008;
+        public static final int RelativeLayout01=0x7f060015;
+        public static final int RelativeLayout02=0x7f060014;
+        public static final int bmapsView=0x7f060016;
+        public static final int btn_his=0x7f060003;
+        public static final int btn_login=0x7f060009;
+        public static final int btn_search=0x7f060002;
+        public static final int ck_autologin=0x7f060008;
+        public static final int ck_rember=0x7f060007;
+        public static final int et_account=0x7f060005;
+        public static final int et_idcode=0x7f060001;
+        public static final int et_pwd=0x7f060006;
+        public static final int img1=0x7f060011;
+        public static final int img2=0x7f060013;
+        public static final int img_more_up=0x7f06000d;
+        public static final int linearLayout1=0x7f060004;
+        public static final int ll_search=0x7f060000;
+        public static final int login_loading_bar=0x7f06000a;
+        public static final int main_locus=0x7f060012;
+        public static final int main_position=0x7f060010;
+        public static final int menu_more=0x7f06000e;
+        public static final int relative2=0x7f060018;
+        public static final int rl_user_position=0x7f060017;
+        public static final int tv_login_more=0x7f06000c;
+        public static final int txt_Title=0x7f06000f;
+        public static final int view_more=0x7f06000b;
     }
     public static final class layout {
         public static final int act_locus=0x7f030000;

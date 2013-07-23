@@ -32,14 +32,14 @@
                 android:ems="10"
                 android:hint="帐号" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="密码" />
 
-        <EditText
-            android:id="@+id/et_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="密码" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -202,16 +202,5 @@
         android:text="移动医疗监护系统"
         android:textColor="#FFFFFF"
         android:textSize="32sp" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout1"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
 
 </RelativeLayout>

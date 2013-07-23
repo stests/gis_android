@@ -21,17 +21,12 @@ public class Act_Main extends Activity implements OnClickListener {
 		Bundle bundle = this.getIntent().getExtras();
 		Userinfo userinfo = (Userinfo) bundle.getSerializable("userinfo");
 
-		RelativeLayout relative1 = (RelativeLayout) findViewById(R.id.main_position);
-		RelativeLayout relative2 = (RelativeLayout) findViewById(R.id.main_locus);
+		relative1 = (RelativeLayout) findViewById(R.id.main_position);
+		relative2 = (RelativeLayout) findViewById(R.id.main_locus);
 		this.context = this;
 		relative1.setOnClickListener(this);
 		relative2.setOnClickListener(this);
 
-		if (userinfo.getIsadmin() == 1) {
-			// 是管理员
-		} else {
-			relative2.setVisibility(8);
-		}
 	}
 
 	@Override

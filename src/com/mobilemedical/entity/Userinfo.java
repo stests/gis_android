@@ -21,6 +21,8 @@ public class Userinfo implements Serializable{
     private Integer deleted;
 
     private Integer isadmin;
+    
+    private String groupname;
 
     public Integer getUserinfoId() {
         return userinfoId;
@@ -85,4 +87,13 @@ public class Userinfo implements Serializable{
     public void setIsadmin(Integer isadmin) {
         this.isadmin = isadmin;
     }
+
+	public String getGroupname() {
+		return groupname;
+	}
+
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
+	}
+    
 }

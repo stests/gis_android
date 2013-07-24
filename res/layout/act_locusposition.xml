@@ -5,12 +5,12 @@
     android:orientation="vertical" >
 
     <Spinner
-        android:id="@+id/position_sp_fun"
+        android:id="@+id/locusposition_sp_fun"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapsView"
+        android:id="@+id/locusposition_bmapsView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:clickable="true" />

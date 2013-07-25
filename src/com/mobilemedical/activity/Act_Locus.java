@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mobilemedical.application.MyApplication;
 import com.mobilemedical.entity.Userinfo;
 
 public class Act_Locus extends Activity {
@@ -32,6 +32,7 @@ public class Act_Locus extends Activity {
 	List<Userinfo> userinfos = null;
 
 	protected void onCreate(Bundle savedInstanceState) {
+		MyApplication.getInstance().addActivity(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_locus);
 		init();

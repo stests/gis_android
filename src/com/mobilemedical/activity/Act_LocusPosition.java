@@ -14,10 +14,10 @@ import com.alibaba.fastjson.JSON;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mobilemedical.application.MyApplication;
 import com.mobilemedical.entity.Userinfo;
 import com.mobilemedical.entity.Userpoint;
 import com.mobilemedical.util.MapUtil;
@@ -38,6 +38,7 @@ public class Act_LocusPosition extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		MyApplication.getInstance().addActivity(this);
 		super.onCreate(savedInstanceState);
 		mBMapMan = new BMapManager(getApplication());
 		mBMapMan.init("9E69D5557A25CD210C19A56FDE88A36FD754FB9E", null);
@@ -82,7 +83,7 @@ public class Act_LocusPosition extends Activity {
 					long l) {
 
 				String itemtxt = (String) spinner.getItemAtPosition(i);
-
+				locusUserPosition(locusUser,itemtxt);
 			}
 
 			@Override
@@ -150,14 +151,107 @@ public class Act_LocusPosition extends Activity {
 	 * @param type
 	 *            类型
 	 */
-	private void locusUserPosition(MapController mMapController, Userinfo user,
+	private void locusUserPosition(Userinfo user,
 			String type) {
+		mMapView.getOverlays().clear();  
+		AsyncHttpClient client = new AsyncHttpClient();
 		if (type.equals("定位")) {
-
+			client.get(url_getPoints+"?type=today&start=&end=&userid="+locusUser.getUserinfoId(), new AsyncHttpResponseHandler() {
+			    public void onSuccess(String responsetxt) {
+			    	userpoint = JSON.parseArray(responsetxt, Userpoint.class);
+			    	if(userpoint!=null&&userpoint.size()>0){
+			    		//得到最后一个点，位置
+			    		String l_pointinfo = userpoint.get(userpoint.size()-1).getPointinfo(); 
+			    		String[] l_infoArray = l_pointinfo.split(",");
+			    		GeoPoint l_point = new GeoPoint((int) (Double.parseDouble(l_infoArray[1]) * 1E6),
+			    				(int) (Double.parseDouble(l_infoArray[0]) * 1E6));
+			    		MapUtil.addText(mMapView, l_point,"最后出现位置");
+			    		mMapController.setCenter(l_point);
+			    	}
+			    }
+			});
 		} else if (type.equals("今日轨迹")) {
-
+			client.get(url_getPoints+"?type=today&start=&end=&userid="+locusUser.getUserinfoId(), new AsyncHttpResponseHandler() {
+			    public void onSuccess(String responsetxt) {
+			    	userpoint = JSON.parseArray(responsetxt, Userpoint.class);
+			    	
+			    	if(userpoint!=null&&userpoint.size()>0){
+			    		GeoPoint fpoint = null;
+			    		GeoPoint lpoint = null;
+			    		
+			    		if(userpoint.size()==1){
+			    			//今日的起点
+		    				String pointinfo = userpoint.get(0).getPointinfo();
+				    		String[] infoArray = pointinfo.split(",");
+				    		GeoPoint point = new GeoPoint((int) (Double.parseDouble(infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(infoArray[0]) * 1E6));
+				    		fpoint = point;
+			    		}else{
+		    				String pointinfo = userpoint.get(0).getPointinfo();
+				    		String[] infoArray = pointinfo.split(",");
+				    		GeoPoint point = new GeoPoint((int) (Double.parseDouble(infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(infoArray[0]) * 1E6));
+				    		fpoint = point;
+				    		
+				    		String l_pointinfo = userpoint.get(userpoint.size()-1).getPointinfo(); 
+				    		String[] l_infoArray = l_pointinfo.split(",");
+				    		GeoPoint l_point = new GeoPoint((int) (Double.parseDouble(l_infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(l_infoArray[0]) * 1E6));
+				    		lpoint = l_point;
+			    		}
+			    		
+			    		MapUtil.addLins(mMapView, userpoint);
+			    		// 用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
+			    		mMapController.setCenter(fpoint);// 设置地图中心点
+			    		MapUtil.addText(mMapView, fpoint,"起点");
+			    		if(lpoint!=null){
+			    			MapUtil.addText(mMapView, lpoint,"最后出现位置");
+			    		}
+			    		mMapController.setZoom(12);// 设置地图zoom级别
+			    	}
+			    }
+			});
 		} else if (type.equals("月轨迹")) {
-
+			client.get(url_getPoints+"?type=month&start=&end=&userid="+locusUser.getUserinfoId(), new AsyncHttpResponseHandler() {
+			    public void onSuccess(String responsetxt) {
+			    	userpoint = JSON.parseArray(responsetxt, Userpoint.class);
+			    	
+			    	if(userpoint!=null&&userpoint.size()>0){
+			    		GeoPoint fpoint = null;
+			    		GeoPoint lpoint = null;
+			    		
+			    		if(userpoint.size()==1){
+			    			//今日的起点
+		    				String pointinfo = userpoint.get(0).getPointinfo();
+				    		String[] infoArray = pointinfo.split(",");
+				    		GeoPoint point = new GeoPoint((int) (Double.parseDouble(infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(infoArray[0]) * 1E6));
+				    		fpoint = point;
+			    		}else{
+		    				String pointinfo = userpoint.get(0).getPointinfo();
+				    		String[] infoArray = pointinfo.split(",");
+				    		GeoPoint point = new GeoPoint((int) (Double.parseDouble(infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(infoArray[0]) * 1E6));
+				    		fpoint = point;
+				    		
+				    		String l_pointinfo = userpoint.get(userpoint.size()-1).getPointinfo(); 
+				    		String[] l_infoArray = l_pointinfo.split(",");
+				    		GeoPoint l_point = new GeoPoint((int) (Double.parseDouble(l_infoArray[1]) * 1E6),
+				    				(int) (Double.parseDouble(l_infoArray[0]) * 1E6));
+				    		lpoint = l_point;
+			    		}
+			    		
+			    		MapUtil.addLins(mMapView, userpoint);
+			    		// 用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
+			    		mMapController.setCenter(fpoint);// 设置地图中心点
+			    		MapUtil.addText(mMapView, fpoint,"起点");
+			    		if(lpoint!=null){
+			    			MapUtil.addText(mMapView, lpoint,"最后出现位置");
+			    		}
+			    		mMapController.setZoom(12);// 设置地图zoom级别
+			    	}
+			    }
+			});
 		}
 	}
 

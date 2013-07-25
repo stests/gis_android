@@ -2,19 +2,25 @@ package com.mobilemedical.activity;
 
 import java.util.HashMap;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.mobilemedical.application.MyApplication;
 import com.mobilemedical.bean.Msg;
 import com.mobilemedical.entity.Userinfo;
 import com.mobilemedical.util.HttpUtil;
@@ -34,10 +40,17 @@ public class Act_Login extends Activity {
     private EditText et_password;
     private Button btn_login;
     
+    private CheckBox ck_rember;
+    private CheckBox ck_autologin;
+    
     private boolean isNetError;
     
 	/** 登录loading提示框 */
 	private ProgressDialog proDialog;
+	
+	private Context context;
+	
+	SharedPreferences sp;
 	
 
 
@@ -63,16 +76,41 @@ public class Act_Login extends Activity {
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	MyApplication.getInstance().addActivity(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_login);
         findViewsById();
+        init();
+        loginCheck();
         setListener();
+    }
+    
+    private void init(){
+    	context = this;
+    	sp = context.getSharedPreferences("SP", MODE_PRIVATE);
+    }
+    
+    private void loginCheck(){
+    	String userinfojson = sp.getString("userinfojson","");
+    	if(!"".equals(userinfojson)&&userinfojson!=null){
+    		Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(userinfojson),Userinfo.class);
+    		et_account.setText(userinfo.getIdcode());
+    		et_password.setText(userinfo.getPassword());
+    	}
+    	Boolean isautologin = sp.getBoolean("isautologin", false);
+    	if(isautologin){
+    		//是自动登入
+    		Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(userinfojson),Userinfo.class);
+    		loginDo(userinfo);
+    	}
     }
 
 	private void findViewsById() {
         et_account = (EditText) findViewById(R.id.et_account);
         et_password = (EditText) findViewById(R.id.et_pwd);
         btn_login = (Button)findViewById(R.id.btn_login);
+        ck_rember = (CheckBox)findViewById(R.id.ck_rember);
+        ck_autologin = (CheckBox)findViewById(R.id.ck_autologin);
     }
 	
 	
@@ -108,27 +146,24 @@ public class Act_Login extends Activity {
 			if(msg.isType() == true){
 				//验证通过
 				Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(msg.getMessage()),Userinfo.class);
-				if(userinfo.getIsadmin()==1){
-					//管理员界面
-					Intent intent = new Intent();
-					intent.setClass(Act_Login.this, Act_Main.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("userinfo", userinfo);
-					intent.putExtras(bundle);
-					// 转向登陆后的页面
-					startActivity(intent);
-					proDialog.dismiss();
+				
+				Editor editor = sp.edit();
+				//记住密码
+				if(ck_rember.isChecked()){
+					editor.putString("userinfojson",msg.getMessage());
 				}else{
-					//用户界面
-					Intent intent = new Intent();
-					intent.setClass(Act_Login.this, Act_User.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("userinfo", userinfo);
-					intent.putExtras(bundle);
-					// 转向登陆后的页面
-					startActivity(intent);
-					proDialog.dismiss();
+					editor.remove("userinfojson");	
 				}
+				//自动登入
+				if(ck_autologin.isChecked()){
+					editor.putString("userinfojson",msg.getMessage());
+					editor.putBoolean("isautologin", true);
+				}else{
+					editor.putBoolean("isautologin", false);
+				}
+				editor.commit();
+				
+				loginDo(userinfo);
 				
 			}else{
 				//未通过
@@ -140,6 +175,31 @@ public class Act_Login extends Activity {
 			}
 			
 		}
+    }
+    
+    public void loginDo(Userinfo userinfo){
+    	if(userinfo.getIsadmin()==1){
+			//管理员界面
+			Intent intent = new Intent();
+			intent.setClass(Act_Login.this, Act_Main.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("userinfo", userinfo);
+			intent.putExtras(bundle);
+			// 转向登陆后的页面
+			startActivity(intent);
+		}else{
+			//用户界面
+			Intent intent = new Intent();
+			intent.setClass(Act_Login.this, Act_User.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("userinfo", userinfo);
+			intent.putExtras(bundle);
+			// 转向登陆后的页面
+			startActivity(intent);
+		}
+    	if(proDialog!=null){
+    		proDialog.dismiss();
+    	}
     }
     
 }

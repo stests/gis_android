@@ -2,10 +2,6 @@ package com.mobilemedical.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.baidu.location.LocationClient;
@@ -13,6 +9,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
+import com.mobilemedical.application.MyApplication;
 import com.mobilemedical.entity.Userinfo;
 import com.mobilemedical.listener.LocationListener;
 
@@ -33,6 +30,7 @@ public class Act_Position extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		MyApplication.getInstance().addActivity(this);
 		super.onCreate(savedInstanceState);
 		mBMapMan = new BMapManager(getApplication());
 		mBMapMan.init("9E69D5557A25CD210C19A56FDE88A36FD754FB9E", null);

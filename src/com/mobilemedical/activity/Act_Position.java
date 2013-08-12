@@ -46,12 +46,12 @@ public class Act_Position extends Activity {
 
 		locationListener.setMapController(mMapController);
 		locationListener.setMapView(mMapView);
+		locationListener.setUrl_insertpoint(getResources().getString(R.string.url_insertPoints));
 
 		// 定位，将定位坐标替换point,坐标系
 		mLocationClient = new LocationClient(getApplicationContext()); // 声明LocationClient类
 		mLocationClient.registerLocationListener(locationListener); // 注册监听函数
 		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);
 		option.setAddrType("all");// 返回的定位结果包含地址信息
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
 		option.setScanSpan(30000);// 设置发起定位请求的间隔时间为5000ms
@@ -60,6 +60,10 @@ public class Act_Position extends Activity {
 		option.setPoiDistance(1000); // poi查询距离
 		option.setPoiExtraInfo(true); // 是否需要POI的电话和地址等详细信息
 		mLocationClient.setLocOption(option);
+		mLocationClient.start();
+		if (mLocationClient != null && mLocationClient.isStarted()){
+			mLocationClient.requestLocation();	
+		}	
 
 		// //设置启用内置的缩放控件
 		// MapController mMapController=mMapView.getController();

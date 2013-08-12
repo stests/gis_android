@@ -20,10 +20,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.mobilemedical.application.MyApplication;
 import com.mobilemedical.bean.Msg;
 import com.mobilemedical.entity.Userinfo;
-import com.mobilemedical.util.HttpUtil;
+import com.mobilemedical.util.Constant;
 
 /**
  * User: zhujun
@@ -94,6 +96,7 @@ public class Act_Login extends Activity {
     	String userinfojson = sp.getString("userinfojson","");
     	if(!"".equals(userinfojson)&&userinfojson!=null){
     		Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(userinfojson),Userinfo.class);
+    		Constant.userinfo = userinfo;
     		et_account.setText(userinfo.getIdcode());
     		et_password.setText(userinfo.getPassword());
     	}
@@ -101,6 +104,7 @@ public class Act_Login extends Activity {
     	if(isautologin){
     		//是自动登入
     		Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(userinfojson),Userinfo.class);
+    		Constant.userinfo = userinfo;
     		loginDo(userinfo);
     	}
     }
@@ -131,49 +135,53 @@ public class Act_Login extends Activity {
     
     class LoginFailureHandler implements Runnable {
 		public void run() {
-			
 			String user = et_account.getText().toString();
 			String pass = et_password.getText().toString();
-			
 			String url_login = getResources().getString(R.string.url_login);
 			
-			HashMap map = new HashMap();
-			map.put("idcode", user);
-			map.put("password", pass);
-			
-			String msg_text = HttpUtil.get(url_login,map);
-			Msg msg = (Msg)JSON.toJavaObject(JSON.parseObject(msg_text), Msg.class);
-			if(msg.isType() == true){
-				//验证通过
-				Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(msg.getMessage()),Userinfo.class);
-				
-				Editor editor = sp.edit();
-				//记住密码
-				if(ck_rember.isChecked()){
-					editor.putString("userinfojson",msg.getMessage());
-				}else{
-					editor.remove("userinfojson");	
-				}
-				//自动登入
-				if(ck_autologin.isChecked()){
-					editor.putString("userinfojson",msg.getMessage());
-					editor.putBoolean("isautologin", true);
-				}else{
-					editor.putBoolean("isautologin", false);
-				}
-				editor.commit();
-				
-				loginDo(userinfo);
-				
-			}else{
-				//未通过
-				Message message = new Message();
-				Bundle bundle = new Bundle();
-				bundle.putBoolean("isNetError", isNetError);
-				message.setData(bundle);
-				loginHandler.sendMessage(message);
-			}
-			
+			AsyncHttpClient client = new AsyncHttpClient();
+			client.get(url_login+"?idcode="+user+"&password="+pass, new AsyncHttpResponseHandler() {
+			    public void onSuccess(String response) {
+			    	Msg msg = (Msg)JSON.toJavaObject(JSON.parseObject(response), Msg.class);
+					if(msg.isType() == true){
+						//验证通过
+						Userinfo userinfo = JSON.toJavaObject(JSON.parseObject(msg.getMessage()),Userinfo.class);
+						Constant.userinfo = userinfo;
+						Editor editor = sp.edit();
+						//记住密码
+						if(ck_rember.isChecked()){
+							editor.putString("userinfojson",msg.getMessage());
+						}else{
+							editor.remove("userinfojson");	
+						}
+						//自动登入
+						if(ck_autologin.isChecked()){
+							editor.putString("userinfojson",msg.getMessage());
+							editor.putBoolean("isautologin", true);
+						}else{
+							editor.putBoolean("isautologin", false);
+						}
+						editor.commit();
+						
+						loginDo(userinfo);
+						
+					}else{
+						//未通过
+						Message message = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putBoolean("isNetError", isNetError);
+						message.setData(bundle);
+						loginHandler.sendMessage(message);
+					}
+			    }
+			    public void onFailure(Throwable e, String response) {
+			    	Toast.makeText(Act_Login.this, "登陆失败:\n1.请检查您网络连接.\n2.请联系我们.!",
+							Toast.LENGTH_SHORT).show();
+			    }
+			    public void onFinish() {
+			    	proDialog.dismiss();
+			    }
+			});
 		}
     }
     

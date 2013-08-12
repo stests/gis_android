@@ -113,7 +113,6 @@ public class Act_Locus extends Activity {
 											RelativeLayout crl = (RelativeLayout)v;
 											TextView t = (TextView)crl.getChildAt(0);
 											
-											
 											Intent intent = new Intent();
 											Bundle bundle = new Bundle();
 											bundle.putSerializable("locusUser",userinfos.get(Integer.parseInt(t.getText().toString())));

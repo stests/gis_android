@@ -73,7 +73,7 @@ public class Act_LocusPosition extends Activity {
 	private void bindEvent(){
 		spinner = (Spinner) findViewById(R.id.locusposition_sp_fun);
 		ArrayAdapter<String> a_funs = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, funs);
+				android.R.layout.simple_spinner_dropdown_item, funs);
 		spinner.setAdapter(a_funs);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

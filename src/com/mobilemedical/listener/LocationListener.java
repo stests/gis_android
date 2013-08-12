@@ -7,6 +7,10 @@ import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mobilemedical.activity.R;
+import com.mobilemedical.util.Constant;
 
 public class LocationListener implements BDLocationListener {
 	
@@ -24,6 +28,11 @@ public class LocationListener implements BDLocationListener {
 	public void setMapView(MapView mapView) {
 		this.mapView = mapView;
 	}
+	
+	private String url_insertpoint;
+	public void setUrl_insertpoint(String url_insertpoint) {
+		this.url_insertpoint = url_insertpoint;
+	}
 
 	private Boolean first = true;
 	
@@ -32,6 +41,36 @@ public class LocationListener implements BDLocationListener {
 	public void onReceiveLocation(BDLocation location) {
 		if (location == null)
 			return;
+		
+		poilocation = location;
+		
+		GeoPoint point =new GeoPoint((int)(poilocation.getLatitude()* 1E6),(int)(poilocation.getLongitude()* 1E6));
+		mapController.setZoom(12);//设置地图zoom级别
+		
+		MyLocationOverlay myLocationOverlay = new MyLocationOverlay(mapView);  
+		LocationData locData = new LocationData();  
+		//手动将位置源置为天安门，在实际应用中，请使用百度定位SDK获取位置信息，要在SDK中显示一个位置，需要使用百度经纬度坐标（bd09ll）  
+		locData.latitude = poilocation.getLatitude();  
+		locData.longitude = poilocation.getLongitude();  
+		locData.direction = 2.0f;  
+		myLocationOverlay.setData(locData);  
+		mapView.getOverlays().add(myLocationOverlay);  
+		mapView.refresh();  
+		
+		mapController.animateTo(point);
+		
+		//userinfoId,pointinfo
+		
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get(url_insertpoint+"?userinfoId="+Constant.userinfo.getUserinfoId()+"&pointinfo="+locData.longitude+","+locData.latitude, new AsyncHttpResponseHandler() {
+		    public void onSuccess(String responsetxt) {
+		    	
+		    }
+		});
+		
+		
+		
+		
 //		StringBuffer sb = new StringBuffer(256);
 //		sb.append("time : ");
 //		sb.append(location.getTime());
@@ -104,6 +143,5 @@ public class LocationListener implements BDLocationListener {
 //		Log.e("t", sb.toString());
 	}
 
-	
 	
 }

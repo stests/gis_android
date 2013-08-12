@@ -7,7 +7,7 @@ public class Userpoint {
 
     private String pointinfo;
 
-    private Integer createtime;
+    private String createtime;
 
     private Integer deleted;
 
@@ -35,14 +35,6 @@ public class Userpoint {
         this.pointinfo = pointinfo == null ? null : pointinfo.trim();
     }
 
-    public Integer getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Integer createtime) {
-        this.createtime = createtime;
-    }
-
     public Integer getDeleted() {
         return deleted;
     }
@@ -50,4 +42,14 @@ public class Userpoint {
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
+
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
+    
+    
 }

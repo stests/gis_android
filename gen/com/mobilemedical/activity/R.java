@@ -30,7 +30,7 @@ public final class R {
     public static final class id {
         public static final int RelativeLayout01=0x7f07001b;
         public static final int RelativeLayout02=0x7f07001a;
-        public static final int bmapsView=0x7f07001d;
+        public static final int bmapsView=0x7f07001c;
         public static final int btn_login=0x7f07000d;
         public static final int ck_autologin=0x7f07000c;
         public static final int ck_rember=0x7f07000b;
@@ -54,12 +54,11 @@ public final class R {
         public static final int main_locus=0x7f070016;
         public static final int main_position=0x7f070014;
         public static final int menu_more=0x7f070012;
-        public static final int position_sp_fun=0x7f07001c;
-        public static final int rel_user_config=0x7f07001f;
-        public static final int rl_user_position=0x7f07001e;
+        public static final int rel_user_config=0x7f07001e;
+        public static final int rl_user_position=0x7f07001d;
         public static final int tv_login_more=0x7f070010;
         public static final int txt_Title=0x7f070013;
-        public static final int user_img_config=0x7f070020;
+        public static final int user_img_config=0x7f07001f;
         public static final int view_more=0x7f07000f;
     }
     public static final class layout {
@@ -73,10 +72,11 @@ public final class R {
         public static final int header=0x7f030007;
     }
     public static final class string {
-        public static final int _=0x7f050005;
+        public static final int _=0x7f050006;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int url_getPoints=0x7f050004;
+        public static final int url_insertPoints=0x7f050005;
         public static final int url_login=0x7f050002;
         public static final int url_searchUser=0x7f050003;
     }

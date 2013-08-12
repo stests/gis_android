@@ -40,6 +40,7 @@ public class Act_Main extends Activity implements OnClickListener {
 		relative3.setOnClickListener(this);
 	}
 
+
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();

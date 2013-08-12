@@ -8,6 +8,8 @@
     <string name="url_login">http://192.168.1.118:8080/welcome/validate.action</string>
     <string name="url_searchUser">http://192.168.1.118:8080/userinfo/search.action</string>
     <string name="url_getPoints">http://192.168.1.118:8080/userpoint/getPoints.action</string>
+    <string name="url_insertPoints">http://192.168.1.118:8080/userpoint/insertPoint.action</string>
+    
     
     
     <string name="_">个人定位</string>

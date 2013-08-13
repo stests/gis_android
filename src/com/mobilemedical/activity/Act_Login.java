@@ -4,8 +4,10 @@ import java.util.HashMap;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -175,6 +177,7 @@ public class Act_Login extends Activity {
 					}
 			    }
 			    public void onFailure(Throwable e, String response) {
+			    	proDialog.dismiss();
 			    	Toast.makeText(Act_Login.this, "登陆失败:\n1.请检查您网络连接.\n2.请联系我们.!",
 							Toast.LENGTH_SHORT).show();
 			    }
@@ -209,6 +212,11 @@ public class Act_Login extends Activity {
     		proDialog.dismiss();
     	}
     }
+    
+    
+    public void onBackPressed() {
+    	MyApplication.getInstance().exit();
+	}
     
 }
 

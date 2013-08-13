@@ -62,15 +62,15 @@ public class Act_Main extends Activity implements OnClickListener {
 	}
 
 	public void onBackPressed() {
-	    new AlertDialog.Builder(context)   
-	    .setTitle("提示")  
-	    .setMessage("确定退出吗？")  
-	    .setPositiveButton("是", new android.content.DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which) {
-				MyApplication.getInstance().exit();
-			}
-	    })  
-	    .setNegativeButton("否",null)  
-	    .show();  
+		new AlertDialog.Builder(context)
+				.setTitle("提示")
+				.setMessage("确定退出吗？")
+				.setPositiveButton("是",
+						new android.content.DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								MyApplication.getInstance().exit();
+							}
+						}).setNegativeButton("否", null).show();
 	}
 }
